@@ -25,21 +25,23 @@ async def cmd_start(message: Message):
         "Я пока сырой и могу косячить, не ругайся."
     )
 
-async def save_voice_as_mp3(bot: Bot, file_id) -> str:
+async def save_audio_file(bot: Bot, file_id) -> str:
     """Скачивает голосовое сообщение и сохраняет в формате mp3."""
     voice_file_info = await bot.get_file(file_id)
+    logging.info(msg=f"file id:{file_id}\n, info: {voice_file_info}\n, path: {voice_file_info.file_path[-3:]} ")
     # voice_ogg = io.BytesIO()
-    await bot.download_file(voice_file_info.file_path, f"app/tracks/{file_id}.ogg")
-    voice_path = f"app/tracks/{file_id}.ogg"
-    return voice_path
+    output_file_path = f"app/tracks/{file_id}.{voice_file_info.file_path[-3:]}"
+    await bot.download_file(voice_file_info.file_path, output_file_path)
+    return output_file_path
 
 
 system_prompt = "Ты полезный помошник. Опиши в 5-10 предложениях о чем был разговор и выдели ключевые моменты в нем. Описание не должно быть длиннее исходного текста. Если разговор содержит только посторонние звуки вместо речи, то так и напиши, что в представленном разговоре нет речи, а только набор звуков."
 
 # Хендлер сообщений с которым будем работать
-# @router.message(content_type=["voice", "audio"])
-@router.message(F.content_type == "voice" or "audio")
 # @flag.chat_action(action=)
+# @router.message(content_type=["voice", "audio"])
+@router.message(F.content_type == "voice")
+@router.message(F.content_type == "audio")
 async def process_voice_message(message: Message, bot: Bot):
     """Принимает голосовое сообщение, транскрибирует его в текст."""
 
@@ -48,9 +50,11 @@ async def process_voice_message(message: Message, bot: Bot):
 
     if message.content_type == ContentType.VOICE:
         file_id = message.voice.file_id
+        logging.info(msg="Got voice message")
     elif message.content_type == ContentType.AUDIO:
         file_id = message.audio.file_id
-    voice_path = await save_voice_as_mp3(bot, file_id)
+        logging.info(msg="Got audio message")
+    voice_path = await save_audio_file(bot, file_id)
     transcripted_voice_text = transcribe(voice_path)
     summed_text = gpt(0, system_prompt, transcripted_voice_text)
     text = "tldr:\n" + summed_text + "\n\n Timestamps:\n" + transcripted_voice_text
