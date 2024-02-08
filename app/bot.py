@@ -3,20 +3,27 @@ import asyncio, os, io
 from aiogram import Bot, Dispatcher, F, Router
 from aiogram.utils.chat_action import ChatActionMiddleware
 from aiogram.types import ContentType, Message, Voice, Audio
+from aiogram.filters.command import Command
+
+import logging
+logging.basicConfig(level=logging.INFO, filename="bot.log")
+
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 router: Router = Router()
+
+# Show bot is proccessing
 router.message.middleware(ChatActionMiddleware())
 
 # Хэндлер на команду /start , /help
-# @router.message(commands=["start", "help"])
-# async def cmd_start(message: Message):
-#     await message.reply(
-#         "Привет! Это Бот для конвертации голосового/аудио сообщения в текст c таймкодами и выделением ключевых моментов в нем."
-#         "Просто пришли или перешли мне голосовое сообщение и я сконвертирую его в текст."
-#         "Добавь меня в чат и я сам автоматически буду отлавливать аудиосообщения и превращать их в текст."
-#         "Я пока сырой и могу косячить, не ругайся."
-#     )
+@router.message(Command("start", "help"))
+async def cmd_start(message: Message):
+    await message.reply(
+        "Привет! Это Бот для конвертации голосового/аудио сообщения в текст c таймкодами и выделением ключевых моментов в нем."
+        "Просто пришли или перешли мне голосовое сообщение и я сконвертирую его в текст."
+        "Добавь меня в чат и я сам автоматически буду отлавливать аудиосообщения и превращать их в текст."
+        "Я пока сырой и могу косячить, не ругайся."
+    )
 
 async def save_voice_as_mp3(bot: Bot, file_id) -> str:
     """Скачивает голосовое сообщение и сохраняет в формате mp3."""
