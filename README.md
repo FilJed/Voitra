@@ -7,6 +7,7 @@ Telegram bot, that helps transcribe and then sum up content of your voices and m
     - archiving
 - beautifying answers
 - docker
+- CI/CD -- github action on push/merge
 - performanse
     - ffmpeg - takes time for conversion
     - stream io -- less iops
