@@ -1,10 +1,12 @@
 from proccessing import transcribe, gpt
 import asyncio, os, io
 from aiogram import Bot, Dispatcher, F, Router
+from aiogram.utils.chat_action import ChatActionMiddleware
 from aiogram.types import ContentType, Message, Voice, Audio
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 router: Router = Router()
+router.message.middleware(ChatActionMiddleware())
 
 # Хэндлер на команду /start , /help
 # @router.message(commands=["start", "help"])
@@ -30,8 +32,13 @@ system_prompt = "Ты полезный помошник. Опиши в 5-10 пр
 # Хендлер сообщений с которым будем работать
 # @router.message(content_type=["voice", "audio"])
 @router.message(F.content_type == "voice" or "audio")
+# @flag.chat_action(action=)
 async def process_voice_message(message: Message, bot: Bot):
     """Принимает голосовое сообщение, транскрибирует его в текст."""
+
+    # Sending indication that bot is proccessing message
+    # await bot.send_chat_action(message.chat.id, action=ChatActionSender.typing)
+
     if message.content_type == ContentType.VOICE:
         file_id = message.voice.file_id
     elif message.content_type == ContentType.AUDIO:
