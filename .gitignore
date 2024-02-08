@@ -1,4 +1,4 @@
 .env
 app/tracks
 bot.log
-app/__pycache__/proccessing.cpython-311.pyc
+app/__pycache__

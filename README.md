@@ -13,6 +13,7 @@ Telegram bot, that helps transcribe and then sum up content of your voices and m
     - stream io -- less iops
 - logging
 - user accounting
+    - statistic
 - count channels to expect number of speaking persons
 
 
