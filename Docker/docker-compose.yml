@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  bot:
+    build:
+      context: ..
+      dockerfile: Docker/dockerfile
+    ports:
+      - "443:443"
+    volumes:
+      - ~/tracks:/bot/app/tracks
+    environment:
+      env-file: .env
+
+volumes:
+  - ~/tracks:/bot/app/tracks
