@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "transcriber-bot"
+version = "0.1"
+description = "Bot for transcribing telegram calls"
+authors = ["Jedy <jedy@live.ru>"]
+readme = "README.md"
+packages = [{include = "transcriber_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^1.11.1"
+aiogram = "^3.3.0"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

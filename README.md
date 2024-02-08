@@ -1,0 +1,1 @@
+Telegram bot, that helps transcribe and then sum up content of your voices and meetings.
