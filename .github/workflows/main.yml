@@ -19,5 +19,8 @@ jobs:
           password: ${{ secrets.PASS }}
           script: |
             cd Voitra
+            export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+            export BOT_TOKEN=${{ secrets.BOT_TOKEN }}
             git pull
-            bash ./Docker/run.sh
+            touch joke
+            # bash ./Docker/run.sh
