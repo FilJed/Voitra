@@ -9,4 +9,4 @@ cd ..
 sudo docker build -t voitra -f Docker/Dockerfile . #
 
 # Run the Docker container
-sudo docker run -it --rm -v ~/tracks:/bot/app/tracks -p 443:443 --env-file .env voitra
+sudo docker run -itd --rm -v ~/tracks:/bot/app/tracks -p 443:443 --env-file .env voitra

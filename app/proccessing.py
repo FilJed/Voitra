@@ -6,8 +6,8 @@ load_dotenv()
 
 client = OpenAI()
 
-# Openai is using old version of ffmpeg that cannot proccess ogg files correctly
-def preproccess_audio(audio):
+# Openai is using old version of ffmpeg that cannot proccess some ogg files correctly. Wav is too havy :(
+def audio_to_wav(audio):
     name = audio.split('.')[0]
     subprocess.call(f"ffmpeg -v quiet -y -i {audio} -vn -ar 16000 -ac 1 {name}.wav", shell=True)
     print(f"{name}.wav")
@@ -31,15 +31,17 @@ def transcribe(audio):
             )
     except BadRequestError as e:
         print("Wait for audio to be processed")
-        audio = preproccess_audio(audio)
+        audio = audio_to_wav(audio)
         tr = transcribe(audio)
         return tr
-        # return "Косяк с форматом файла, обработчик пока не написан"
     except FileNotFoundError as e:
         return "Логистика файлов сломалась"
     os.remove(audio)
-    transcript = re.sub("\n[0-9]+\n", "", transcript)
-    transcript = re.sub(",\d{3}", "", transcript)
+    #TODO make it all as one function. fucking regexes
+    transcript = re.sub("\n[0-9]+\n|,\d{3}", "", transcript)
+    transcript = re.sub("(\d{2}:)+\d{2}\n", "", transcript)
+    transcript = re.sub(r"(0{2}:)(\d{2}:\d{2})", r"\2", transcript)
+    transcript = transcript.replace("--> ", "")
     return transcript[2:]
 
 def gpt(temperature, prompt, text):

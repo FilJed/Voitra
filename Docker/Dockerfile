@@ -12,6 +12,9 @@ ENV PYTHONFAULTHANDLER=1 \
 RUN pip install -U pip && \
     pip install poetry
 
+RUN apt-get update && \
+    apt-get install -y ffmpeg
+
 WORKDIR /bot
 
 # COPY . .
