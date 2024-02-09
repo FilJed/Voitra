@@ -9,8 +9,8 @@ services:
       - "443:443"
     restart: on-failure
     environment:
-      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      OPENAI_API_KEY: ${{ secrets.BOT_TOKEN }}
+      BOT_TOKEN: $${{ secrets.BOT_TOKEN }}
+      OPENAI_API_KEY: $${{ secrets.BOT_TOKEN }}
     volumes:
       - ~/Voitra/app/tracks:/bot/app/tracks
     # env_file:
