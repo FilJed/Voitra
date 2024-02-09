@@ -1,4 +1,10 @@
-Telegram bot, that helps transcribe and then sum up content of your voices and meetings.
+Telegram bot, that helps transcribe and then sum up content of your voices, audios and meetings.
+
+# Install
+- clone repo
+- install dependances using poetry
+- `app/bot.py` to run service
+- there is also dockerfile, but it is mostly for prod
 
 # To dos
 - limitation:
