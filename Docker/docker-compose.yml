@@ -9,8 +9,8 @@ services:
       - "443:443"
     # volumes:
     #   - ~/Voitra/app/tracks:/bot/app/tracks
-    env_file:
-      - ../.env
+    # env_file:
+    #   - ../.env
 
 # volumes:
 #   - ~/Voitra/app/tracks:/bot/app/tracks
