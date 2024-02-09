@@ -3,13 +3,15 @@ name: deploy
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Deploying using ssh
+      - name: Deploy using ssh
         uses: appleboy/ssh-action@master
         env: 
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -23,3 +25,4 @@ jobs:
           script: |
             cd Voitra
             git pull
+            sudo docker compose -f Docker/docker-compose.yml up -d
