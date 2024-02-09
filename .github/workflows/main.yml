@@ -17,9 +17,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           password: ${{ secrets.PASS }}
-          env: 
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-            BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          envs: 
+            ${{ secrets.OPENAI_API_KEY }}
+            ${{ secrets.BOT_TOKEN }}
           script: |
             cd Voitra
             # export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
