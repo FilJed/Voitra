@@ -10,7 +10,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
       - name: Deploy using ssh
         env: 
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -22,7 +22,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           password: ${{ secrets.PASS }}
-          envs: OPENAI_API_KEY,BOT_TOKEN
+          envs: OPENAI_API_KEY, BOT_TOKEN
           script: |
             cd Voitra
             git pull origin devops
