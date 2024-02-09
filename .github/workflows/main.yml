@@ -17,10 +17,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           password: ${{ secrets.PASS }}
+          envs: 
+            - ${{ secrets.OPENAI_API_KEY }},
+            - ${{ BOT_TOKEN }}
           script: |
             cd Voitra
-            export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-            export BOT_TOKEN=${{ secrets.BOT_TOKEN }}
+            # export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+            # export BOT_TOKEN=${{ secrets.BOT_TOKEN }}
             git pull
-            touch joke
             # bash ./Docker/run.sh

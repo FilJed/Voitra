@@ -3,13 +3,14 @@ services:
   bot:
     build:
       context: ..
-      dockerfile: Docker/dockerfile
+      dockerfile: Docker/Dockerfile
+    container_name: voitra
     ports:
       - "443:443"
-    volumes:
-      - ~/tracks:/bot/app/tracks
-    environment:
-      env-file: .env
+    # volumes:
+    #   - ~/Voitra/app/tracks:/bot/app/tracks
+    env_file:
+      - ../.env
 
-volumes:
-  - ~/tracks:/bot/app/tracks
+# volumes:
+#   - ~/Voitra/app/tracks:/bot/app/tracks

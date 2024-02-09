@@ -1,9 +1,6 @@
 import subprocess, re, os
 from openai import OpenAI, BadRequestError
 
-from  dotenv import load_dotenv
-load_dotenv()
-
 client = OpenAI()
 
 # Openai is using old version of ffmpeg that cannot proccess some ogg files correctly. Wav is too havy :(
