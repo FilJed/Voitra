@@ -26,6 +26,6 @@ jobs:
           script: |
             cd Voitra
             git pull origin devops
-            # echo ${BOT_TOKEN} > $BOT_TOKEN
-            # echo ${OPENAI_API_KEY} >> $OPENAI_API_KEY 
+            echo ${BOT_TOKEN} > $BOT_TOKEN
+            echo ${OPENAI_API_KEY} > $OPENAI_API_KEY 
             sudo docker compose -f Docker/docker-compose.yml up -d
