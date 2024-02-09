@@ -22,9 +22,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           # password: ${{ secrets.PASS }}
-          # envs: 
-          #   - OPENAI_API_KEY
-          #   - BOT_TOKEN
+          envs: 
+            OPENAI_API_KEY
+            BOT_TOKEN
           script: |
             cd Voitra
             git pull origin devops
