@@ -5,10 +5,10 @@ client = OpenAI()
 
 # Openai is using old version of ffmpeg that cannot proccess some ogg files correctly. Wav is too havy :(
 def audio_to_wav(audio):
-    name = audio.split('.')[0]
-    subprocess.call(f"ffmpeg -v quiet -y -i {audio} -vn -ar 16000 -ac 1 {name}.wav", shell=True)
-    print(f"{name}.wav")
-    return f"{name}.wav"
+    input_path = audio.split('.')[-2]
+    output_path = f".{input_path}.wav"
+    subprocess.call(f"ffmpeg -v quiet -y -i -vn -ar 16000 -ac 1 {audio} {output_path}", shell=True)
+    return output_path
 
 # # check file size is less then 25mb
 # def size(audio):
@@ -32,7 +32,7 @@ def transcribe(audio):
         tr = transcribe(audio)
         return tr
     except FileNotFoundError as e:
-        return "Логистика файлов сломалась"
+        return "ERORR: Логистика файлов сломалась"
     os.remove(audio)
     #TODO make it all as one function. fucking regexes
     transcript = re.sub("\n[0-9]+\n|,\d{3}", "", transcript)

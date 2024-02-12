@@ -2,3 +2,4 @@
 app/tracks
 bot.log
 app/__pycache__
+app/.test.ipynb
