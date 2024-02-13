@@ -42,8 +42,8 @@ system_prompt = "Ты полезный помошник.  Опиши в 5-10 п�
 # Хендлер сообщений? TODO причесать
 # @flag.chat_action(action=)
 # @router.message(content_type=["voice", "audio"])
-@router.message(F.content_type == "voice")
-@router.message(F.content_type == "audio")
+@router.message(F.content_type == "voice" | F.content_type == "audio")
+# @router.message(F.content_type == "audio")
 async def process_voice_message(message: Message, bot: Bot):
     """Принимает голосовое сообщение, транскрибирует его в текст."""
     if message.content_type == ContentType.VOICE:

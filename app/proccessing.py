@@ -7,7 +7,7 @@ client = OpenAI()
 def audio_to_wav(audio):
     input_path = audio.split('.')[-2]
     output_path = f".{input_path}.wav"
-    subprocess.call(f"ffmpeg -v quiet -y -i -vn -ar 16000 -ac 1 {audio} {output_path}", shell=True)
+    subprocess.call(f"ffmpeg -i {audio} -y -vn -c:a libopus -b:a 12k -application voip {output_path}", shell=True) 
     return output_path
 
 # # check file size is less then 25mb
